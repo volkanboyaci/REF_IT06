@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GetTransactionData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Diagnostics;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetTransactionData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sd1="clr-namespace:System.Diagnostics;assembly=System" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
@@ -12,7 +12,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1072,2726</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1073,1639</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetTransactionData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -42,6 +42,7 @@
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -78,16 +79,17 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Description: Get one row from TransactionData data table. If no new data, set out_TransactionItem to Nothing. &#xA;&#xA;For a linear process (not repetitive), set out_TransactionItem only for in_TransactionNumber 1 - first and only transaction. &#xA;&#xA;If the process is repeatable, assign a new out_TransactionItem by using the in_TransactionNumber to index in_TransactionData. Be aware that, at the end of the in_TransactionData collection, it is your responsibility to set out_TransactionItem to Nothing, thus ending the process." DisplayName="GetTransactionData" sap:VirtualizedContainerService.HintSize="829,2621" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Description: Get one row from TransactionData data table. If no new data, set out_TransactionItem to Nothing. &#xA;&#xA;For a linear process (not repetitive), set out_TransactionItem only for in_TransactionNumber 1 - first and only transaction. &#xA;&#xA;If the process is repeatable, assign a new out_TransactionItem by using the in_TransactionNumber to index in_TransactionData. Be aware that, at the end of the in_TransactionData collection, it is your responsibility to set out_TransactionItem to Nothing, thus ending the process." DisplayName="GetTransactionData" sap:VirtualizedContainerService.HintSize="798,1574" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <If Condition="[in_TransactionNumber &lt;= in_TransactionData.Rows.Count]" DisplayName="If - Rows to process" sap:VirtualizedContainerService.HintSize="787,1255" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[in_TransactionNumber &lt;= in_TransactionData.Rows.Count]" DisplayName="If - Rows to process" sap:VirtualizedContainerService.HintSize="756,208" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
         <Assign DisplayName="Assign Transaction Item" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
           <Assign.To>
@@ -99,86 +101,17 @@
         </Assign>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="480,1107" sap2010:WorkflowViewState.IdRef="Sequence_3">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Set Transaction Item as null to stop" sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="Assign_6">
-            <Assign.To>
-              <OutArgument x:TypeArguments="sd:DataRow">[out_TransactionItem]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataRow">[Nothing]</InArgument>
-            </Assign.Value>
-          </Assign>
-          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,915" sap2010:WorkflowViewState.IdRef="TryCatch_1">
-            <TryCatch.Try>
-              <Sequence sap:VirtualizedContainerService.HintSize="376,688" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SpecialKey="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="334,116" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="s" KeyModifiers="Ctrl">
-                  <ui:SendHotkey.Target>
-                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="21012ed6-85d4-45d7-98e7-598ddd866bdf">
-                      <ui:Target.TimeoutMS>
-                        <InArgument x:TypeArguments="x:Int32" />
-                      </ui:Target.TimeoutMS>
-                      <ui:Target.WaitForReady>
-                        <InArgument x:TypeArguments="ui:WaitForReady" />
-                      </ui:Target.WaitForReady>
-                    </ui:Target>
-                  </ui:SendHotkey.Target>
-                </ui:SendHotkey>
-                <Delay Duration="00:00:10" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Delay_1" />
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Excel saved.&quot;]" />
-                <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey" sap:VirtualizedContainerService.HintSize="334,116" sap2010:WorkflowViewState.IdRef="SendHotkey_2" Key="f4" KeyModifiers="Alt" SpecialKey="True">
-                  <ui:SendHotkey.Target>
-                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="d6f3c570-d3ae-4fa0-8aaf-d7e57b6e2d01">
-                      <ui:Target.TimeoutMS>
-                        <InArgument x:TypeArguments="x:Int32" />
-                      </ui:Target.TimeoutMS>
-                      <ui:Target.WaitForReady>
-                        <InArgument x:TypeArguments="ui:WaitForReady" />
-                      </ui:Target.WaitForReady>
-                    </ui:Target>
-                  </ui:SendHotkey.Target>
-                </ui:SendHotkey>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Excel closed.&quot;]" />
-              </Sequence>
-            </TryCatch.Try>
-            <TryCatch.Catches>
-              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <ActivityAction x:TypeArguments="s:Exception">
-                  <ActivityAction.Argument>
-                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                  </ActivityAction.Argument>
-                  <Sequence sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;Excel could not saved.&quot;]" />
-                    <Rethrow sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
-                  </Sequence>
-                </ActivityAction>
-              </Catch>
-            </TryCatch.Catches>
-          </TryCatch>
-        </Sequence>
+        <Assign DisplayName="Set Transaction Item as null to stop" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+          <Assign.To>
+            <OutArgument x:TypeArguments="sd:DataRow">[out_TransactionItem]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="sd:DataRow">[Nothing]</InArgument>
+          </Assign.Value>
+        </Assign>
       </If.Else>
     </If>
-    <Assign sap2010:Annotation.AnnotationText="Initializes a new Stopwatch instance, sets the elapsed time property to zero, and starts measuring elapsed time." DisplayName="Assign TransactionExecutionWathc" sap:VirtualizedContainerService.HintSize="787,117" sap2010:WorkflowViewState.IdRef="Assign_10">
+    <Assign sap2010:Annotation.AnnotationText="Initializes a new Stopwatch instance, sets the elapsed time property to zero, and starts measuring elapsed time." DisplayName="Assign TransactionExecutionWathc" sap:VirtualizedContainerService.HintSize="756,117" sap2010:WorkflowViewState.IdRef="Assign_10">
       <Assign.To>
         <OutArgument x:TypeArguments="sd1:Stopwatch">[out_TransactionExecutionWatch]</OutArgument>
       </Assign.To>
@@ -191,7 +124,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <If Condition="[out_TransactionItem isNot Nothing]" DisplayName="If a new Item is fetched Grab it's significant data for logging" sap:VirtualizedContainerService.HintSize="787,975" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[out_TransactionItem isNot Nothing]" DisplayName="If a new Item is fetched Grab it's significant data for logging" sap:VirtualizedContainerService.HintSize="756,975" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence sap2010:Annotation.AnnotationText="Write data to the added fields that identify the Transaction" DisplayName="Write Transaction info in Logging Fields" sap:VirtualizedContainerService.HintSize="611,827" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
